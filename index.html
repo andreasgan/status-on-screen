@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" class="w-full h-full">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="style.css">
+  <title>Tailwind CSS Minimal Setup</title>
+</head>
+
+<body class="antialiased w-full h-full bg-gray-100 text-red-800 text-2xl font-bold">
+  <div id="clickable" class=" w-full h-full flex items-center justify-center" onclick=test>
+    <div class="flex h-full py-16" style='display: none'>
+      <div class="flex flex-col h-full w-full px-4" id="template">
+        <div class="grow flex flex-col justify-end w-full items-center">
+          <div class="mb-2">{{points}}</div>
+          <div id="bar" style="height:100%" class="w-12 bg-green-800 rounded-2xl"></div>
+        </div>
+        <img id="avatar" class="mt-4 w-32 h-32 rounded-full" src="https://source.unsplash.com/random/100x100/?fruit" />
+        <div class="text-center ">{{name}}</div>
+      </div>
+    </div>
+    <div class="flex h-full py-16" id="persons-box">
+    </div>
+
+    <script type="module">
+      import { persons } from '/custom/config.js';
+
+      document.getElementById('clickable').onclick = (e) => {
+        console.log('clicked screen')
+        e.preventDefault();
+      }
+
+      document.onkeyup = function (event) {
+        var key = event.which ?? event.keyCode;
+
+        var person = persons[key - 49];
+        if (person == null) {
+          return
+        }
+
+        if (event.shiftKey) {
+          person.points--;
+        } else {
+          person.points++;
+        }
+
+        console.log(event.shiftKey);
+        console.log("Wooohoo");
+
+        updatePage();
+      };
+
+      function updatePage() {
+        var personsBox = document.getElementById('persons-box');
+        var elements = [];
+
+        for (var person of persons) {
+          var el = document.getElementById('template').cloneNode(true);
+          el.style.display = "flex";
+          el.id = person.name;
+          el.innerHTML = el.innerHTML.replace('{{points}}', person.points)
+          el.innerHTML = el.innerHTML.replace('{{name}}', person.name)
+
+          el.querySelector('#avatar').src = person.img;
+
+          let percent = Math.max(0, person.points) / getHighestPoints() * 100;
+          el.querySelector('#bar').style.height = `${percent}%`;
+
+          elements.push(el)
+        }
+        personsBox.replaceChildren(...elements);
+      }
+
+      function getHighestPoints() {
+        var highest = [...persons].sort((a, b) => a.points - b.points)[persons.length - 1].points;
+        return Math.max(1, highest);
+      }
+
+      updatePage();
+
+
+    </script>
+    <script>
+
+    </script>
+</body>
+
+</html>
