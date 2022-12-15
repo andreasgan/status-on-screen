@@ -1,7 +1,7 @@
 {
-  "name": "tailwindcss-minimal-setup",
+  "name": "status-on-screen",
   "version": "1.0.0",
-  "description": "Setup Tailwind CSS in 20 seconds without node_modules",
+  "description": "A scoreboard",
   "main": "tailwind.config.js",
   "scripts": {
     "serve": "http-server -c 1",
@@ -14,14 +14,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tomaszbujnowicz/tailwindcss-minimal-setup.git"
+    "url": "git+https://github.com/andreasgan/status-on-screen.git"
   },
   "keywords": [],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/tomaszbujnowicz/tailwindcss-minimal-setup/issues"
-  },
-  "homepage": "https://github.com/tomaszbujnowicz/tailwindcss-minimal-setup#readme",
   "dependencies": {
     "autoprefixer": "^10.4.13",
     "http-server": "^14.1.1",
