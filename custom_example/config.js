@@ -1,4 +1,4 @@
-export const persons = [
+var persons = [
     {
         "name": "Person 1",
         "points": 0,
